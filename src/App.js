@@ -16,8 +16,10 @@ function App() {
 
   return (
     <Card>
+       <label>Filter by name:</label>
       <input type="text" onChange={searchHandler} />
-
+      <br />
+      <br />
       <InfiniteScroll
         dataLength={gifs.length}
         next={() => setPageNumber(pageNumber + 1)}
