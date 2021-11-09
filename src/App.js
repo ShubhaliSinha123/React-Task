@@ -28,7 +28,7 @@ function App() {
         {gifs.map((data, id) => {
           return (
             <div key={id}>
-              <img src={data.images.fixed_height.url} />
+              <img src={data.images.fixed_height.url} alt="Giphy gifs!" />
             </div>
           );
         })}

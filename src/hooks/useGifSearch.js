@@ -16,12 +16,10 @@ const useGifSearch = (searchValue, pageNumber) => {
           count: 1000,
         },
       });
-      console.log(response);
       setGifs(response.data.data);
       setIsLoading(false);
     } catch (error) {
       setError(error.message);
-      console.log(error);
     }
   };
 
@@ -36,11 +34,9 @@ const useGifSearch = (searchValue, pageNumber) => {
       setGifs((prevGifs) => {
         return [...new Set([...prevGifs, ...filteredData.data.data])];
       });
-      console.log(filteredData);
       setIsLoading(false);
     } catch (error) {
       setError(error.message);
-      console.log(error);
     }
   };
 
