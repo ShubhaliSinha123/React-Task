@@ -13,7 +13,6 @@ const useGifSearch = (searchValue, pageNumber) => {
       const response = await axios("https://api.giphy.com/v1/gifs/trending", {
         params: {
           api_key: "t9NTLqeKB4Cow0Vqjg1HuiLiyEFWVh0K",
-          count: 1000,
         },
       });
       setGifs(response.data.data);
@@ -25,16 +24,18 @@ const useGifSearch = (searchValue, pageNumber) => {
 
   const searchData = async () => {
     try {
-      const filteredData = await axios("https://api.giphy.com/v1/gifs/search", {
-        params: {
-          api_key: "t9NTLqeKB4Cow0Vqjg1HuiLiyEFWVh0K",
-          q: searchValue,
-        },
-      });
-      setGifs((prevGifs) => {
-        return [...new Set([...prevGifs, ...filteredData.data.data])];
-      });
-      setIsLoading(false);
+      if(searchValue.length > 2) {
+        const filteredData = await axios("https://api.giphy.com/v1/gifs/search", {
+          params: {
+            api_key: "t9NTLqeKB4Cow0Vqjg1HuiLiyEFWVh0K",
+            q: searchValue,
+          },
+        });
+        setGifs((prevGifs) => {
+          return [...new Set([...prevGifs, ...filteredData.data.data])];
+        });
+        setIsLoading(false);
+      }
     } catch (error) {
       setError(error.message);
     }

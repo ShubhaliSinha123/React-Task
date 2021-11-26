@@ -3,10 +3,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import useGifSearch from "./hooks/useGifSearch";
 import LoadingIndicator from "./UI/LoadingIndicator";
 import Card from "./UI/Card";
+import { DebounceInput } from 'react-debounce-input';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+
   const { gifs, isLoading, error } = useGifSearch(searchValue, pageNumber);
 
   const searchHandler = (event) => {
@@ -16,10 +18,13 @@ function App() {
 
   return (
     <Card>
-       <label>Filter by name:</label>
-      <input type="text" onChange={searchHandler} />
+      <div className="label">
+       <label style={{fontSize:"1.5rem"}}>Filter by name:</label>
+      <DebounceInput className="input" type="text" onChange={searchHandler} placeholder="Search" debounceTimeout={500} minLength={1} />
+      </div>
       <br />
       <br />
+      <div className="container">
       <InfiniteScroll
         dataLength={gifs.length}
         next={() => setPageNumber(pageNumber + 1)}
@@ -27,13 +32,14 @@ function App() {
       >
         {gifs.map((data, id) => {
           return (
-            <div key={id}>
+            <applet key={id} className="gif-item">
               <img src={data.images.fixed_height.url} alt="Giphy gifs!" />
-            </div>
+            </applet>
           );
         })}
       </InfiniteScroll>
-      {isLoading && <LoadingIndicator />}
+      {searchValue && isLoading && <LoadingIndicator />}
+      </div>
       <div>{error && "Error"}</div>
     </Card>
   );
