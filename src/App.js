@@ -20,7 +20,7 @@ function App() {
     <Card>
       <div className="label">
        <label style={{fontSize:"1.5rem"}}>Filter by name:</label>
-      <DebounceInput className="input" type="text" onChange={searchHandler} placeholder="Search" debounceTimeout={500} minLength={1} />
+      <DebounceInput className="input" type="text" onChange={searchHandler} placeholder="Search" debounceTimeout={200} minLength={1} />
       </div>
       <br />
       <br />
